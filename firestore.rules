@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Application data is accessed through the authenticated Cloud Functions API.
+    // The Admin SDK used by Cloud Functions bypasses these client security rules.
+    // Keep all direct browser reads and writes denied.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

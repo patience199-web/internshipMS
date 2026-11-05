@@ -1,0 +1,10 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Private documents are uploaded/downloaded through the authenticated API.
+    // Cloud Functions use the Admin SDK and are not constrained by these rules.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
